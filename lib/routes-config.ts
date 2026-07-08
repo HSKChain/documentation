@@ -23,6 +23,15 @@ export const ROUTES: EachRoute[] = [
     isSeparator: true,  
   },
   {
+    title: "Notices",
+    href: "/Notices",
+    noLink: true,
+    isSeparator: true,
+    items: [
+      { title: "Jovian Network Upgrade", href: "/Jovian-Upgrade" },
+    ],
+  },
+  {
     title: "Build on HashKey Chain",
     href: "/Build-on-HashKey-Chain",
     noLink: true,
