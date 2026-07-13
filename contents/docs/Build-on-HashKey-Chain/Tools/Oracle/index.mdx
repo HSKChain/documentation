@@ -1,23 +1,23 @@
 ---
 title: Oracles
-description: Oracles serve as the critical bridge between blockchain networks and real-world data, enabling smart contracts to interact with external information. HashKey Chain integrates with leading oracle providers to ensure developers have access to reliable, secure, and decentralized data feeds for building robust applications.
+description: Oracles serve as the critical bridge between blockchain networks and real-world data, enabling smart contracts to interact with external information. HSKChain integrates with leading oracle providers to ensure developers have access to reliable, secure, and decentralized data feeds for building robust applications.
 
 ---
 
 ## SUPRA Oracle
 
-[SUPRA](https://supra.com/data) provides HashKey Chain with advanced oracle technology delivering reliable and accurate real-world data feeds. Addressing limitations of traditional oracles such as dependency on trusted intermediaries and latency issues, SUPRA developed the Distributed Oracle Agreement (DORA) - a high-performance consensus algorithm that aggregates price data from up to 21 sources, ensuring data integrity through Byzantine Fault Tolerance.
+[SUPRA](https://supra.com/data) provides HSKChain with advanced oracle technology delivering reliable and accurate real-world data feeds. Addressing limitations of traditional oracles such as dependency on trusted intermediaries and latency issues, SUPRA developed the Distributed Oracle Agreement (DORA) - a high-performance consensus algorithm that aggregates price data from up to 21 sources, ensuring data integrity through Byzantine Fault Tolerance.
 
 ### Available Networks
 
-SUPRA's oracle infrastructure on HashKey Chain includes Pull Oracle contracts that allow smart contracts to request and retrieve data:
+SUPRA's oracle infrastructure on HSKChain includes Pull Oracle contracts that allow smart contracts to request and retrieve data:
 
 #### Pull Oracle Model
 
 | Network | Pull Contract | Storage Contract |
 |---------|--------------|-----------------|
-| HashKey Chain Mainnet | `0x16f70cAD28dd621b0072B5A8a8c392970E87C3dD` | `0x58e158c74DF7Ad6396C0dcbadc4878faC9e93d57` |
-| HashKey Chain Testnet | `0x443A0f4Da5d2fdC47de3eeD45Af41d399F0E5702` | `0x6Cd59830AAD978446e6cc7f6cc173aF7656Fb917` |
+| HSKChain Mainnet | `0x16f70cAD28dd621b0072B5A8a8c392970E87C3dD` | `0x58e158c74DF7Ad6396C0dcbadc4878faC9e93d57` |
+| HSKChain Testnet | `0x443A0f4Da5d2fdC47de3eeD45Af41d399F0E5702` | `0x6Cd59830AAD978446e6cc7f6cc173aF7656Fb917` |
 
 ### Implementation Example
 
@@ -48,7 +48,7 @@ contract SupraConsumer {
 
 ## APRO Oracle
 
-[APRO](https://www.apro.com/) integrates with HashKey Chain using innovative Data Push technology to deliver reliable and timely price feeds. Utilizing a threshold-based data model, APRO's decentralized node operators continuously aggregate and push updates to the blockchain when specific price thresholds are met, enhancing scalability and ensuring real-time data delivery for DeFi protocols and smart contracts.
+[APRO](https://www.apro.com/) integrates with HSKChain using innovative Data Push technology to deliver reliable and timely price feeds. Utilizing a threshold-based data model, APRO's decentralized node operators continuously aggregate and push updates to the blockchain when specific price thresholds are met, enhancing scalability and ensuring real-time data delivery for DeFi protocols and smart contracts.
 
 ### Price Feeds
 
@@ -112,8 +112,8 @@ Chainlink Streams provides verifiable price data through a decentralized network
 
 | Network | Verifier Proxy Address |
 |---------|------------------------|
-| HashKey Chain Mainnet | `0x3278e7a582B94d82487d4B99b31A511CbAe2Cd54` |
-| HashKey Chain Testnet | `0xE02A72Be64DA496797821f1c4BB500851C286C6c` |
+| HSKChain Mainnet | `0x3278e7a582B94d82487d4B99b31A511CbAe2Cd54` |
+| HSKChain Testnet | `0xE02A72Be64DA496797821f1c4BB500851C286C6c` |
 
 ### Implementation Example
 
@@ -156,4 +156,4 @@ contract ChainlinkConsumer {
 | Ethereum Global | Verify Proxy | Cross-chain applications | Multi-chain compatibility |
 | Chainlink | Streams | Mission-critical applications | Industry-standard security and reliability |
 
-For specific integration questions or custom oracle solutions, contact the HashKey Chain developer support team.
+For specific integration questions or custom oracle solutions, contact the HSKChain developer support team.

@@ -1,12 +1,12 @@
 ---
 title: RPC & Node Provider
-description: HashKey Chain relies on a decentralized network of RPC (Remote Procedure Call) nodes that enable developers to interact with the blockchain. This guide covers how to set up and operate your own RPC node for both mainnet and testnet environments.
+description: HSKChain relies on a decentralized network of RPC (Remote Procedure Call) nodes that enable developers to interact with the blockchain. This guide covers how to set up and operate your own RPC node for both mainnet and testnet environments.
 
 ---
 
 ## Running Your Own Node
 
-Self-hosting a HashKey Chain node gives you improved reliability, privacy, and control over your blockchain interactions. The following steps will help you set up a full node using Docker.
+Self-hosting a HSKChain node gives you improved reliability, privacy, and control over your blockchain interactions. The following steps will help you set up a full node using Docker.
 
 ### Prerequisites
 
@@ -58,7 +58,7 @@ docker compose logs -f
 
 ### Mainnet Configuration
 
-Create a `.env` file with the following content for HashKey Chain Mainnet, replacing `<L1_RPC_URL>` and `<BEACON_URL>` with your Ethereum mainnet endpoints:
+Create a `.env` file with the following content for HSKChain Mainnet, replacing `<L1_RPC_URL>` and `<BEACON_URL>` with your Ethereum mainnet endpoints:
 
 ```bash
 # geth image
@@ -104,7 +104,7 @@ ROLLUP_CONFIG_URL="https://hashkeychain.s3.ap-southeast-1.amazonaws.com/mainnet/
 
 ### Testnet Configuration
 
-Create a `.env` file with the following content for HashKey Chain Testnet, replacing `<BEACON_URL>` with your Ethereum Sepolia testnet beacon endpoint:
+Create a `.env` file with the following content for HSKChain Testnet, replacing `<BEACON_URL>` with your Ethereum Sepolia testnet beacon endpoint:
 
 ```bash
 # geth image

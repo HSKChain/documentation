@@ -1,6 +1,6 @@
 # Ethereum Gas Fee Calculation
 
-Gas fees are a fundamental aspect of the Ethereum network, serving as the mechanism that prices computational resources and helps secure the network against spam and denial-of-service attacks. This document explores how gas fees work in Ethereum, their evolution over time, and how HashKey Chain implements its fee structure.
+Gas fees are a fundamental aspect of the Ethereum network, serving as the mechanism that prices computational resources and helps secure the network against spam and denial-of-service attacks. This document explores how gas fees work in Ethereum, their evolution over time, and how HSKChain implements its fee structure.
 
 ## Gas Fundamentals
 
@@ -134,20 +134,20 @@ const gasEstimate = await web3.eth.estimateGas({
 const gasLimitWithBuffer = Math.floor(gasEstimate * 1.2);
 ```
 
-## HashKey Chain's Fee Model
+## HSKChain's Fee Model
 
-[HashKey Chain](/docs/Build-on-HashKey-Chain/Fee) employs a dual-fee structure that builds upon Ethereum's model while optimizing for its Layer 2 architecture.
+[HSKChain](/docs/Build-on-HashKey-Chain/Fee) employs a dual-fee structure that builds upon Ethereum's model while optimizing for its Layer 2 architecture.
 
 ### Dual-Fee Structure
 
-Each transaction on HashKey Chain includes two distinct fee components:
+Each transaction on HSKChain includes two distinct fee components:
 
 ```
 Total Fee = L2 Execution Fee + L1 Security Fee
 ```
 
 **L2 Execution Fee:**
-- Covers computational resources on HashKey Chain
+- Covers computational resources on HSKChain
 - Similar to Ethereum's gas model
 - `L2 Execution Fee = Gas Used × L2 Gas Price`
 - Typically more stable and predictable
@@ -160,9 +160,9 @@ Total Fee = L2 Execution Fee + L1 Security Fee
 
 ### Key Differences from Ethereum
 
-1. **Data Compression**: HashKey Chain employs advanced data compression techniques to minimize L1 security fees
+1. **Data Compression**: HSKChain employs advanced data compression techniques to minimize L1 security fees
 2. **Fee Stability**: The L2 execution component provides more stable fees than Ethereum mainnet
 3. **Economic Efficiency**: Overall costs are significantly lower than equivalent transactions on Ethereum L1
 4. **Predictability**: The separation of L1 and L2 fees provides clearer cost expectations
 
-For detailed information on HashKey Chain's fee structure, optimization techniques, and current fee rates, refer to the [HashKey Chain Transaction Fee documentation](/docs/Build-on-HashKey-Chain/Fee).
+For detailed information on HSKChain's fee structure, optimization techniques, and current fee rates, refer to the [HSKChain Transaction Fee documentation](/docs/Build-on-HashKey-Chain/Fee).

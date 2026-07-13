@@ -20,10 +20,10 @@ interface WalletConnectProps {
   buttonWidth?: string;
 }
 
-// HashKey Chain 网络参数
+// HSKChain 网络参数
 const HASHKEY_CHAIN = {
   chainId: '0xB1', // 十六进制的177
-  chainName: 'HashKey Chain',
+  chainName: 'HSKChain',
   nativeCurrency: {
     name: 'HSK',
     symbol: 'HSK',
@@ -67,11 +67,11 @@ export function WalletConnect({
         method: 'eth_chainId' 
       });
       
-      // 如果不是HashKey Chain网络，尝试切换
+      // 如果不是HSKChain网络，尝试切换
       if (chainId !== HASHKEY_CHAIN.chainId) {
         setStatus('switching');
         try {
-          // 尝试切换到HashKey Chain
+          // 尝试切换到HSKChain
           await window.ethereum.request({
             method: 'wallet_switchEthereumChain',
             params: [{ chainId: HASHKEY_CHAIN.chainId }],
@@ -85,10 +85,10 @@ export function WalletConnect({
                 params: [HASHKEY_CHAIN],
               });
             } catch (addError) {
-              throw new Error('Failed to add HashKey Chain network to wallet.');
+              throw new Error('Failed to add HSKChain network to wallet.');
             }
           } else {
-            throw new Error('Failed to switch to HashKey Chain network.');
+            throw new Error('Failed to switch to HSKChain network.');
           }
         }
       }
@@ -128,7 +128,7 @@ export function WalletConnect({
           className="rounded-full"
         />
         {status === 'connecting' ? 'Connecting...' : 
-         status === 'switching' ? 'Switching to HashKey Chain...' : 
+         status === 'switching' ? 'Switching to HSKChain...' : 
          buttonText}
       </Button>
       
@@ -136,7 +136,7 @@ export function WalletConnect({
         <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-md text-green-700 dark:text-green-300 text-sm">
           <div className="flex items-center gap-2 mb-2">
             <CheckCircle className="h-5 w-5 text-green-500" />
-            <p className="font-medium">Successfully signed message on HashKey Chain!</p>
+            <p className="font-medium">Successfully signed message on HSKChain!</p>
           </div>
           <p className="mt-1 break-all font-mono text-xs">Signature: {signature}</p>
         </div>

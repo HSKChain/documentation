@@ -13,7 +13,7 @@ export type EachRoute = {
 
 export const ROUTES: EachRoute[] = [
   {
-    title: "About HashKey Chain",
+    title: "About HSKChain",
     href: "/About-HashKey-Chain",
     isSeparator: true,
   },
@@ -32,7 +32,7 @@ export const ROUTES: EachRoute[] = [
     ],
   },
   {
-    title: "Build on HashKey Chain",
+    title: "Build on HSKChain",
     href: "/Build-on-HashKey-Chain",
     noLink: true,
     isSeparator: true, 
