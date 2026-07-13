@@ -3,7 +3,7 @@
 
 ## Introduction
 
-Reentrancy is one of the most well-known and historically impactful vulnerabilities affecting smart contracts, particularly on EVM-compatible blockchains like Ethereum and HashKey Chain. It occurs when a function in a smart contract makes an external call to another (potentially untrusted) contract, and this external contract is able to call back ("re-enter") into the original contract's function *before* the initial invocation of that function has finished executing, specifically before critical state updates (like balance deductions) have occurred.
+Reentrancy is one of the most well-known and historically impactful vulnerabilities affecting smart contracts, particularly on EVM-compatible blockchains like Ethereum and HSKChain. It occurs when a function in a smart contract makes an external call to another (potentially untrusted) contract, and this external contract is able to call back ("re-enter") into the original contract's function *before* the initial invocation of that function has finished executing, specifically before critical state updates (like balance deductions) have occurred.
 
 This allows an attacker to repeatedly execute parts of a function, often draining funds or manipulating state in unintended ways, because the contract's internal accounting hasn't caught up with the effects of the external interaction.
 

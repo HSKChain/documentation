@@ -22,7 +22,7 @@ const monoFont = Space_Mono({
 export const metadata: Metadata = {
   title: "HashKey Docs",
   description:
-    "This is the official documentation for HashKey Chain. Developer documentation for HashKey Chain. Developer documentation for Ethereum-compatible chains.",
+    "This is the official documentation for HSKChain. Developer documentation for HSKChain. Developer documentation for Ethereum-compatible chains.",
 };
 
 export default function RootLayout({

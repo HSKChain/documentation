@@ -1,12 +1,12 @@
 ---
 title: Safe
-description: Safe (formerly Gnosis Safe) is an industry-leading multi-signature wallet that provides advanced security for digital assets and smart contract interactions. HashKey Chain offers official Safe deployments for both mainnet and testnet environments.
+description: Safe (formerly Gnosis Safe) is an industry-leading multi-signature wallet that provides advanced security for digital assets and smart contract interactions. HSKChain offers official Safe deployments for both mainnet and testnet environments.
 
 ---
 
 ## Introduction to Safe
 
-Safe enables teams, organizations, and individuals to securely manage their digital assets and interact with decentralized applications on HashKey Chain. By requiring multiple signatures to confirm transactions, Safe significantly increases security and reduces the risk of unauthorized access.
+Safe enables teams, organizations, and individuals to securely manage their digital assets and interact with decentralized applications on HSKChain. By requiring multiple signatures to confirm transactions, Safe significantly increases security and reduces the risk of unauthorized access.
 
 ### Key Features
 
@@ -19,19 +19,19 @@ Safe enables teams, organizations, and individuals to securely manage their digi
 
 ## Available Instances
 
-HashKey Chain provides officially supported instances of Safe for both production and development purposes.
+HSKChain provides officially supported instances of Safe for both production and development purposes.
 
 ### Mainnet Safe
 
-The production version of Safe is available for managing assets on HashKey Chain Mainnet.
+The production version of Safe is available for managing assets on HSKChain Mainnet.
 
-[Access HashKey Chain Mainnet Safe](https://multisig.hashkeychain.net/welcome?chain=HSK)
+[Access HSKChain Mainnet Safe](https://multisig.hashkeychain.net/welcome?chain=HSK)
 
 ```javascript
 // Example: Retrieving Safe information using Safe SDK
 import { SafeApiKit, SafeFactory } from '@safe-global/api-kit'
 
-// Connect to HashKey Chain Mainnet Safe
+// Connect to HSKChain Mainnet Safe
 const safeService = new SafeApiKit({
   txServiceUrl: 'https://safe-transaction-hashkey.safe.global',
   ethAdapter: ethAdapter
@@ -43,17 +43,17 @@ const safeInfo = await safeService.getSafeInfo(safeAddress)
 
 ### Testnet Safe
 
-For development and testing, use the HashKey Chain Testnet Safe instance.
+For development and testing, use the HSKChain Testnet Safe instance.
 
-[Access HashKey Chain Testnet Safe](https://testnet-safe.hsk.xyz/welcome?chain=HSKT)
+[Access HSKChain Testnet Safe](https://testnet-safe.hsk.xyz/welcome?chain=HSKT)
 
 <Note title="Testing Environment">
-  The testnet Safe instance is perfect for development and testing. Use it with testnet HSK tokens from the [HashKey Chain Testnet Faucet](/docs/Build-on-HashKey-Chain/Tools/Faucet) to practice Safe operations in a risk-free environment.
+  The testnet Safe instance is perfect for development and testing. Use it with testnet HSK tokens from the [HSKChain Testnet Faucet](/docs/Build-on-HashKey-Chain/Tools/Faucet) to practice Safe operations in a risk-free environment.
 </Note>
 
 ## Getting Started with Safe
 
-To create and manage a Safe on HashKey Chain:
+To create and manage a Safe on HSKChain:
 
 1. **Create a Safe**
    - Visit the appropriate Safe instance based on your network (mainnet or testnet)
@@ -82,4 +82,4 @@ To create and manage a Safe on HashKey Chain:
 - [Safe Core SDK](https://github.com/safe-global/safe-core-sdk)
 - [Safe Transaction Service](https://github.com/safe-global/safe-transaction-service)
 
-For enterprise use cases or integration support, contact the HashKey Chain developer relations team.
+For enterprise use cases or integration support, contact the HSKChain developer relations team.

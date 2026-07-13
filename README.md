@@ -1,10 +1,10 @@
-# HashKey Chain Documentation
+# HSKChain Documentation
 
-This repository contains the official documentation for HashKey Chain. We welcome contributions from the community to help improve and expand our documentation.
+This repository contains the official documentation for HSKChain. We welcome contributions from the community to help improve and expand our documentation.
 
 ## Contributing to the Documentation
 
-We appreciate your interest in contributing to the HashKey Chain documentation. By following these guidelines, you can help us maintain high-quality, consistent documentation.
+We appreciate your interest in contributing to the HSKChain documentation. By following these guidelines, you can help us maintain high-quality, consistent documentation.
 
 ### Prerequisites
 
@@ -102,4 +102,4 @@ This documentation is licensed under [LICENSE_TYPE]. See the LICENSE file for de
 
 ---
 
-Thank you for contributing to HashKey Chain documentation and helping make blockchain technology more accessible to everyone!
+Thank you for contributing to HSKChain documentation and helping make blockchain technology more accessible to everyone!
