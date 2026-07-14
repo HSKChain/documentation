@@ -54,6 +54,10 @@ docker compose up -d
 docker compose logs -f
 ```
 
+<Note title="Faster sync">
+  Syncing the execution layer from genesis can take a long time. To bootstrap op-geth from an official chaindata snapshot instead, see the **Syncing from a Snapshot** section below.
+</Note>
+
 ## Configuration Templates
 
 ### Mainnet Configuration
@@ -144,3 +148,78 @@ P2P_STATIC='/dns/testnet-bootnodes.hsk.xyz/tcp/9003/p2p/16Uiu2HAmK91SZeGrr7Tv7hK
 # rollup config file url link
 ROLLUP_CONFIG_URL="https://hashkeychain.s3.ap-southeast-1.amazonaws.com/testnet/rollup.json"
 ```
+
+## Syncing from a Snapshot
+
+Syncing a HSKChain node from genesis can take a long time — especially for an archive node. To get up and running faster, you can bootstrap **op-geth** from an official chaindata snapshot instead of syncing the execution layer block by block.
+
+<Note title="Before you start">
+  These are **archive** op-geth chaindata snapshots compressed with Zstandard (`.tar.zst`). Make sure you have `wget`, `tar`, and `zstd` installed, and enough free disk space (see the archive-node storage requirement in the Prerequisites section).
+</Note>
+
+### Available Snapshots
+
+| Network | Snapshot URL |
+|---------|--------------|
+| Mainnet | `https://snapshot.hashkeychain.net/mainnet/20260701-mainnet-archive-chaindata.tar.zst` |
+| Testnet | `https://snapshot.hashkeychain.net/testnet/20260701-testnet-archive-chaindata.tar.zst` |
+
+### Restore Steps
+
+1. **Stop the node if it is already running**
+
+```bash
+docker compose down
+```
+
+2. **Download the snapshot for your network**
+
+```bash
+# Mainnet
+wget https://snapshot.hashkeychain.net/mainnet/20260701-mainnet-archive-chaindata.tar.zst
+
+# Testnet
+wget https://snapshot.hashkeychain.net/testnet/20260701-testnet-archive-chaindata.tar.zst
+```
+
+3. **Inspect the archive layout**
+
+Check the top-level folder inside the archive so you extract it to the right place. op-geth stores its data under `<GETH_DATA_DIR>/geth/chaindata`, where `<GETH_DATA_DIR>` is the host directory mounted as the op-geth data volume in your `docker-compose.yml`.
+
+```bash
+tar --use-compress-program=zstd -tvf 20260701-mainnet-archive-chaindata.tar.zst | head
+```
+
+4. **Extract the snapshot into the op-geth data directory**
+
+```bash
+# extract directly (requires a tar build with zstd support)
+tar --use-compress-program=zstd -xvf 20260701-mainnet-archive-chaindata.tar.zst -C <GETH_DATA_DIR>
+```
+
+If your `tar` does not support zstd, decompress first and then extract:
+
+```bash
+zstd -d 20260701-mainnet-archive-chaindata.tar.zst -o chaindata.tar
+tar -xvf chaindata.tar -C <GETH_DATA_DIR>
+```
+
+<Note title="Placement" type="warning">
+  The extracted data must end up at `<GETH_DATA_DIR>/geth/chaindata`. If the archive contains a top-level `geth/` folder, extract it at `<GETH_DATA_DIR>`; if it contains a `chaindata/` folder directly, extract it into `<GETH_DATA_DIR>/geth`.
+</Note>
+
+5. **Ensure sync mode is `full`, then start the node**
+
+Keep `GETH_SYNC_MODE=full` in your `.env`, then start:
+
+```bash
+docker compose up -d
+```
+
+6. **Verify the node resumes from the snapshot**
+
+```bash
+docker compose logs -f
+```
+
+op-geth should import the snapshot, resume from the snapshot's block height, and then catch up to the chain head via the P2P network.
