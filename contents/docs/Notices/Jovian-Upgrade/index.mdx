@@ -20,18 +20,17 @@ This means node operators only perform the upgrade once, but the node software m
 
 ## Activation Schedule
 
-<Note title="Mainnet timing" type="warning">
-  Mainnet activation times are **not yet finalized** and will be announced separately. The testnet schedule below is final.
-</Note>
+Both networks activate the hardforks in sequence, 5 minutes (300s) apart. All times are UTC.
 
-On **HSKChain Testnet**, the upgrade begins at the Granite activation, **2026-07-09 06:30:00 UTC**. The four hardforks then activate in sequence, 5 minutes apart:
+- **Testnet** begins at the Granite activation, **2026-07-09 06:30:00 UTC** — all four hardforks activate in this window.
+- **Mainnet** already has **Granite** active; this upgrade activates the remaining three hardforks starting **2026-07-29 06:30:00 UTC**.
 
-| Hardfork | Testnet (UTC) | Testnet Unix | Mainnet |
-|----------|---------------|--------------|---------|
-| Granite | 2026-07-09 06:30:00 | `1783578600` | TBA |
-| Holocene | 2026-07-09 06:35:00 | `1783578900` | TBA |
-| Isthmus | 2026-07-09 06:40:00 | `1783579200` | TBA |
-| Jovian | 2026-07-09 06:45:00 | `1783579500` | TBA |
+| Hardfork | Testnet (UTC) | Testnet Unix | Mainnet (UTC) | Mainnet Unix |
+|----------|---------------|--------------|---------------|--------------|
+| Granite | 2026-07-09 06:30:00 | `1783578600` | Already active | — |
+| Holocene | 2026-07-09 06:35:00 | `1783578900` | 2026-07-29 06:30:00 | `1785306600` |
+| Isthmus | 2026-07-09 06:40:00 | `1783579200` | 2026-07-29 06:35:00 | `1785306900` |
+| Jovian | 2026-07-09 06:45:00 | `1783579500` | 2026-07-29 06:40:00 | `1785307200` |
 
 ## Component Versions
 
@@ -67,7 +66,7 @@ The op-node rollup configuration has been updated to include the new hardfork ac
 # Testnet (updated — includes Granite/Holocene/Isthmus/Jovian times)
 curl -o rollup.json "https://hashkeychain.s3.ap-southeast-1.amazonaws.com/testnet/rollup.json"
 
-# Mainnet (will be updated once mainnet activation times are announced)
+# Mainnet (updated — includes Holocene/Isthmus/Jovian times; Granite already active)
 curl -o rollup.json "https://hashkeychain.s3.ap-southeast-1.amazonaws.com/mainnet/rollup.json"
 ```
 
@@ -89,7 +88,14 @@ op-geth \
   --override.jovian=1783579500
 ```
 
-**Mainnet:** activation timestamps to be announced.
+**Mainnet** (Granite is already active, so only the remaining three forks need overrides):
+
+```bash
+op-geth \
+  --override.holocene=1785306600 \
+  --override.isthmus=1785306900 \
+  --override.jovian=1785307200
+```
 
 <Note title="Tip" type="note">
   op-node reads the activation times from `rollup.json` automatically; the override flags above only need to be set on op-geth. You can confirm the exact flag names supported by your build with `op-geth --help | grep override`.
