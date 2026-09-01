@@ -161,8 +161,8 @@ Syncing a HSKChain node from genesis can take a long time — especially for an 
 
 | Network | Snapshot URL |
 |---------|--------------|
-| Mainnet | `https://snapshot.hashkeychain.net/mainnet/20260701-mainnet-archive-chaindata.tar.zst` |
-| Testnet | `https://snapshot.hashkeychain.net/testnet/20260701-testnet-archive-chaindata.tar.zst` |
+| Mainnet | `https://snapshot.hashkeychain.net/mainnet/20260829-mainnet-archive-chaindata.tar.zst` |
+| Testnet | `https://snapshot.hashkeychain.net/testnet/20260901-testnet-archive-chaindata.tar.zst` |
 
 ### Restore Steps
 
@@ -176,10 +176,10 @@ docker compose down
 
 ```bash
 # Mainnet
-wget https://snapshot.hashkeychain.net/mainnet/20260701-mainnet-archive-chaindata.tar.zst
+wget https://snapshot.hashkeychain.net/mainnet/20260829-mainnet-archive-chaindata.tar.zst
 
 # Testnet
-wget https://snapshot.hashkeychain.net/testnet/20260701-testnet-archive-chaindata.tar.zst
+wget https://snapshot.hashkeychain.net/testnet/20260901-testnet-archive-chaindata.tar.zst
 ```
 
 3. **Inspect the archive layout**
@@ -187,20 +187,20 @@ wget https://snapshot.hashkeychain.net/testnet/20260701-testnet-archive-chaindat
 Check the top-level folder inside the archive so you extract it to the right place. op-geth stores its data under `<GETH_DATA_DIR>/geth/chaindata`, where `<GETH_DATA_DIR>` is the host directory mounted as the op-geth data volume in your `docker-compose.yml`.
 
 ```bash
-tar --use-compress-program=zstd -tvf 20260701-mainnet-archive-chaindata.tar.zst | head
+tar --use-compress-program=zstd -tvf 20260829-mainnet-archive-chaindata.tar.zst | head
 ```
 
 4. **Extract the snapshot into the op-geth data directory**
 
 ```bash
 # extract directly (requires a tar build with zstd support)
-tar --use-compress-program=zstd -xvf 20260701-mainnet-archive-chaindata.tar.zst -C <GETH_DATA_DIR>
+tar --use-compress-program=zstd -xvf 20260829-mainnet-archive-chaindata.tar.zst -C <GETH_DATA_DIR>
 ```
 
 If your `tar` does not support zstd, decompress first and then extract:
 
 ```bash
-zstd -d 20260701-mainnet-archive-chaindata.tar.zst -o chaindata.tar
+zstd -d 20260829-mainnet-archive-chaindata.tar.zst -o chaindata.tar
 tar -xvf chaindata.tar -C <GETH_DATA_DIR>
 ```
 
