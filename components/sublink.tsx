@@ -32,7 +32,7 @@ export default function SubLink({
 
   const linkStyles = "text-sm font-normal";
 
-  // 处理外部链接
+  // handle external links
   const ExternalComp = externalLink ? (
     <a 
       href={href} 

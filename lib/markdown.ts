@@ -123,22 +123,22 @@ export async function getDocsTocs(slug: string) {
 export function getPreviousNext(path: string) {
   const index = page_routes.findIndex(({ href }) => href == `/${path}`);
   
-  // 查找有效的前一个链接（跳过外部链接和无效链接）
+  // find the previous valid link (skip external and invalid links)
   let prevIndex = index - 1;
   while (prevIndex >= 0) {
     const prevRoute = page_routes[prevIndex];
-    // 检查是否为有效的内部文档链接
+    // check that it is a valid internal doc link
     if (prevRoute && !prevRoute.externalLink) {
       break;
     }
     prevIndex--;
   }
   
-  // 查找有效的后一个链接（跳过外部链接和无效链接）
+  // find the next valid link (skip external and invalid links)
   let nextIndex = index + 1;
   while (nextIndex < page_routes.length) {
     const nextRoute = page_routes[nextIndex];
-    // 检查是否为有效的内部文档链接
+    // check that it is a valid internal doc link
     if (nextRoute && !nextRoute.externalLink) {
       break;
     }
