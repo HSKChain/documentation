@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
     ],
   }
   // eslint: {
-  //   // ESLint 检查不会导致构建失败
+  //   // ESLint errors will not fail the build
   //   ignoreDuringBuilds: true,
   // },
   // if used turbopack

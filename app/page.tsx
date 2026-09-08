@@ -6,7 +6,7 @@ import { Typography } from "@/components/typography";
 import { getDocsForSlug } from "@/lib/markdown";
 
 export default async function Home() {
-  // 使用固定路径获取文档内容
+  // fetch the doc content using a fixed path
   const pathName = "About-HashKey-Chain";
   const slug = pathName.split('/');
   const res = await getDocsForSlug(pathName);

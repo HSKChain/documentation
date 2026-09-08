@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import { CheckCircle } from 'lucide-react';
 
-// 扩展Window接口以包含ethereum属性
+// extend the Window interface to include the ethereum property
 declare global {
   interface Window {
     ethereum?: any;
@@ -20,9 +20,9 @@ interface WalletConnectProps {
   buttonWidth?: string;
 }
 
-// HSKChain 网络参数
+// HSKChain network parameters
 const HASHKEY_CHAIN = {
-  chainId: '0xB1', // 十六进制的177
+  chainId: '0xB1', // 177 in hex
   chainName: 'HSKChain',
   nativeCurrency: {
     name: 'HSK',
@@ -53,7 +53,7 @@ export function WalletConnect({
     
     setStatus('connecting');
     try {
-      // 请求账户访问
+      // request account access
       const accounts = await window.ethereum.request({ 
         method: 'eth_requestAccounts' 
       });
@@ -62,22 +62,22 @@ export function WalletConnect({
         throw new Error('No accounts found');
       }
       
-      // 获取当前网络ID
+      // get the current network ID
       const chainId = await window.ethereum.request({ 
         method: 'eth_chainId' 
       });
       
-      // 如果不是HSKChain网络，尝试切换
+      // if not connected to HSKChain, try to switch
       if (chainId !== HASHKEY_CHAIN.chainId) {
         setStatus('switching');
         try {
-          // 尝试切换到HSKChain
+          // try switching to HSKChain
           await window.ethereum.request({
             method: 'wallet_switchEthereumChain',
             params: [{ chainId: HASHKEY_CHAIN.chainId }],
           });
         } catch (switchError: any) {
-          // 如果链未添加到钱包中，尝试添加它
+          // if the chain has not been added to the wallet, try adding it
           if (switchError.code === 4902) {
             try {
               await window.ethereum.request({
@@ -93,10 +93,10 @@ export function WalletConnect({
         }
       }
       
-      // 构建消息
+      // build the message
       const encodedMessage = `0x${Buffer.from(message).toString('hex')}`;
       
-      // 请求签名
+      // request the signature
       const sig = await window.ethereum.request({
         method: 'personal_sign',
         params: [encodedMessage, accounts[0]],

@@ -6,9 +6,9 @@ export type EachRoute = {
   noLink?: true; // noLink will create a route segment (section) but cannot be navigated
   items?: EachRoute[];
   tag?: string;
-  isSeparator?: boolean; // 添加分隔线属性
-  collapsible?: boolean; // 控制菜单项是否可折叠
-  externalLink?: boolean; // 外部链接标记
+  isSeparator?: boolean; // adds a separator line below this section
+  collapsible?: boolean; // controls whether the menu item is collapsible
+  externalLink?: boolean; // marks an external link
 };
 
 export const ROUTES: EachRoute[] = [
@@ -54,6 +54,7 @@ export const ROUTES: EachRoute[] = [
       },
       { title: "Fee", href: "/Fee" },
       { title: "RPC & Node Provider", href: "/RPC-Node-Provider" },
+      { title: "Flashblocks", href: "/Flashblocks" },
     ],
   },{
     title: "Learn",
@@ -110,17 +111,17 @@ type Page = {
 
 function getRecurrsiveAllLinks(node: EachRoute) {
   const ans: Page[] = [];
-  // 只有当不是noLink和外部链接时才添加该项（移除对isSeparator的检查）
+  // only add this item when it is not a noLink or external link (isSeparator check removed)
   if (!node.noLink && !node.externalLink) {
     ans.push({ title: node.title, href: node.href });
   }
   node.items?.forEach((subNode) => {
-    // 如果是外部链接，不修改href
+    // keep href unchanged for external links
     const href = subNode.externalLink ? subNode.href : `${node.href}${subNode.href}`;
     const temp = { ...subNode, href };
-    // 将所有子节点添加到结果中，并传递externalLink属性
+    // add all child links to the result, carrying the externalLink flag
     const childLinks = getRecurrsiveAllLinks(temp);
-    // 如果是外部链接，确保标记externalLink属性
+    // make sure the externalLink flag is set for external links
     if (subNode.externalLink) {
       childLinks.forEach(link => {
         link.externalLink = true;
