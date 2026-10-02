@@ -151,10 +151,10 @@ ROLLUP_CONFIG_URL="https://hashkeychain.s3.ap-southeast-1.amazonaws.com/testnet/
 
 ## Syncing from a Snapshot
 
-Syncing a HSKChain node from genesis can take a long time — especially for an archive node. To get up and running faster, you can bootstrap **op-geth** from an official chaindata snapshot instead of syncing the execution layer block by block.
+Syncing a HSKChain node from genesis can take a long time — especially for an archive node. To get up and running faster, you can bootstrap your execution client — **op-geth** or **op-reth** — from an official chaindata snapshot instead of syncing the execution layer block by block.
 
 <Note title="Before you start">
-  These are **archive** op-geth chaindata snapshots compressed with Zstandard (`.tar.zst`). Make sure you have `wget`, `tar`, and `zstd` installed, and enough free disk space (see the archive-node storage requirement in the Prerequisites section).
+  These are **archive** chaindata snapshots compressed with Zstandard (`.tar.zst`), available for both **op-geth** and **op-reth**. Make sure you have `curl`, `tar`, and `zstd` installed, and enough free disk space (see the archive-node storage requirement in the Prerequisites section).
 </Note>
 
 ### Restore Steps
@@ -167,6 +167,10 @@ docker compose down
 
 2. **Download the snapshot for your network**
 
+Choose the snapshot that matches your execution client.
+
+**op-geth:**
+
 ```bash
 # Mainnet
 curl -fL -o mainnet-archive-chaindata.tar.zst \
@@ -176,6 +180,22 @@ curl -fL -o mainnet-archive-chaindata.tar.zst \
 curl -fL -o testnet-archive-chaindata.tar.zst \
   "$(curl -fsSL https://snapshot.hashkeychain.net/testnet/latest.txt)"
 ```
+
+**op-reth:**
+
+```bash
+# Mainnet
+curl -fL -o mainnet-archive-chaindata.tar.zst \
+  "$(curl -fsSL https://snapshot.hashkeychain.net/mainnet/reth/latest.txt)"
+
+# Testnet
+curl -fL -o testnet-archive-chaindata.tar.zst \
+  "$(curl -fsSL https://snapshot.hashkeychain.net/testnet/reth/latest.txt)"
+```
+
+<Note title="op-reth data directory">
+  Steps 3–6 below describe the op-geth data layout (`<GETH_DATA_DIR>/geth/chaindata`). If you run op-reth, extract the snapshot into the op-reth data directory mounted in your `docker-compose.yml` instead — use the archive layout from step 3 to confirm the correct target path.
+</Note>
 
 3. **Inspect the archive layout**
 
