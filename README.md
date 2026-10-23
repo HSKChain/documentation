@@ -12,7 +12,7 @@ Before you start contributing, ensure you have:
 
 - A GitHub account
 - Git installed on your local machine
-- Node.js (version 16 or higher) and npm installed
+- Node.js **22.23.4+** (或 **24.22.1+** / **26.12.1+**，修复 CVE-2026-111497 等安全漏洞) 与 npm
 - Basic knowledge of Markdown and MDX
 
 ### Setting Up the Development Environment
