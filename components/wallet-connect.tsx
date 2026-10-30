@@ -30,7 +30,7 @@ const HASHKEY_CHAIN = {
     decimals: 18
   },
   rpcUrls: ['https://mainnet.hsk.xyz'],
-  blockExplorerUrls: ['https://hashkey.blockscout.com/']
+  blockExplorerUrls: ['https://hsk.blockscout.com/']
 };
 
 export function WalletConnect({

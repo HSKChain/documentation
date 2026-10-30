@@ -12,7 +12,7 @@ Before you start contributing, ensure you have:
 
 - A GitHub account
 - Git installed on your local machine
-- Node.js (version 16 or higher) and npm installed
+- Node.js **22.23.4+**, **24.22.1+**, or **26.12.1+** (includes fixes for CVE-2026-111497 and related issues), and npm
 - Basic knowledge of Markdown and MDX
 
 ### Setting Up the Development Environment
