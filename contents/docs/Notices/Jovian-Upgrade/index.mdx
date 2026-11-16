@@ -1,11 +1,11 @@
 ---
 title: Jovian Network Upgrade
-description: HSKChain is upgrading from the Fjord hardfork to the Jovian hardfork. This notice covers the activation schedule, the required node software versions, the updated rollup.json, the op-geth hardfork override commands, and the new features and protocols enabled by this upgrade.
+description: HSKChain is upgrading from the Fjord hardfork to the Jovian hardfork. This notice covers activation times, upgraded L2 contracts, updated rollup.json and genesis.json, required op-node v1.16.5, and enabled OP Stack protocol features.
 
 ---
 
 <Note title="Action Required" type="warning">
-  All node operators (RPC, full, and archive nodes) must update **op-geth** and **op-node**, pull the updated **rollup.json**, and configure the op-geth hardfork override flags **before the activation time**. Nodes that are not upgraded in time will diverge from the network (chain split) and will have to re-sync.
+  All node operators (RPC, full, and archive nodes) must update **op-node** (and the execution client version paired with this release), pull the latest **`rollup.json`** and **`genesis.json`**, and apply any required hardfork overrides **before the activation time**. Nodes that are not upgraded in time will diverge from the network (chain split) and will have to re-sync.
 </Note>
 
 ## Overview
@@ -17,6 +17,40 @@ Because HSKChain is jumping across several OP Stack hardforks in a single step, 
 `Fjord` → **`Granite`** → **`Holocene`** → **`Isthmus`** → **`Jovian`**
 
 This means node operators only perform the upgrade once, but the node software must be told the activation time of every intermediate fork.
+
+Along with the fork schedule, this release updates **two L2 system contracts** on mainnet and publishes new **`rollup.json`** and **`genesis.json`** files that encode the hardfork activation times and chain configuration.
+
+## L2 contract updates (Mainnet)
+
+Jovian changes the rollup fee model and L1 block metadata plumbing on L2. The upgraded contracts below are live on HSKChain Mainnet:
+
+| Contract | Address |
+| -------- | ------- |
+| GasPriceOracle | [`0x4f1db3c6AbD250ba86E0928471A8F7DB3AFd88F1`](https://hsk.blockscout.com/address/0x4f1db3c6AbD250ba86E0928471A8F7DB3AFd88F1) |
+| L1Block | [`0x3Ba4007f5C922FBb33C454B41ea7a1f11E83df2C`](https://hsk.blockscout.com/address/0x3Ba4007f5C922FBb33C454B41ea7a1f11E83df2C) |
+
+For the full L2 predeploy list, see [Contract Addresses](/docs/Build-on-HashKey-Chain/Contract-Addresses).
+
+## Rollup & genesis configuration
+
+Node software reads fork activation from **`rollup.json`** (op-node) and chain genesis parameters from **`genesis.json`** (execution layer). Both files are updated for this upgrade. Pull the latest copies before restart, or run `./fetch-config.sh` if you use the [fullnode-sync](https://github.com/HSKChain/fullnode-sync) stack.
+
+| File | Purpose |
+| ---- | ------- |
+| `rollup.json` | Hardfork timestamps, batch inbox, and other rollup parameters for **op-node** |
+| `genesis.json` | Chain ID, alloc, and hardfork configuration consumed by the execution client |
+
+Official download URLs (content is updated in place at these locations):
+
+```bash
+# Testnet
+curl -o rollup.json "https://hashkeychain.s3.ap-southeast-1.amazonaws.com/testnet/rollup.json"
+curl -o genesis.json "https://hashkeychain.s3.ap-southeast-1.amazonaws.com/testnet/genesis.json"
+
+# Mainnet
+curl -o rollup.json "https://hashkeychain.s3.ap-southeast-1.amazonaws.com/mainnet/rollup.json"
+curl -o genesis.json "https://hashkeychain.s3.ap-southeast-1.amazonaws.com/mainnet/genesis.json"
+```
 
 ## Activation Schedule
 
@@ -41,6 +75,8 @@ The following software versions are required for the Jovian upgrade. These are t
 | op-geth | `v1.101605.0` | `us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:v1.101605.0` |
 | op-node | `v1.16.5` | `public.ecr.aws/x7e7q5l8/op-node:v1.16.5` |
 
+HSKChain’s **op-node v1.16.5** release for Jovian is maintained on branch [`cgt-jovian/v1.16.5`](https://github.com/HSKChain/optimism/tree/cgt-jovian/v1.16.5) in the [HSKChain/optimism](https://github.com/HSKChain/optimism) repository (fork of [ethereum-optimism/optimism](https://github.com/ethereum-optimism/optimism)).
+
 <Note title="op-node image change" type="warning">
   The **op-node** image has moved to a new registry. Make sure your `.env` / `docker-compose` uses `public.ecr.aws/x7e7q5l8/op-node:v1.16.5` (not the previous `us-docker.pkg.dev/...` image). The version tag (`v1.16.5`) is unchanged.
 </Note>
@@ -58,19 +94,9 @@ GETH_IMAGE=us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:v1.101605.0
 NODE_IMAGE=public.ecr.aws/x7e7q5l8/op-node:v1.16.5
 ```
 
-### 2. Update the rollup.json
+### 2. Update `rollup.json` and `genesis.json`
 
-The op-node rollup configuration has been updated to include the new hardfork activation times. Pull the latest `rollup.json` before restarting:
-
-```bash
-# Testnet (updated — includes Granite/Holocene/Isthmus/Jovian times)
-curl -o rollup.json "https://hashkeychain.s3.ap-southeast-1.amazonaws.com/testnet/rollup.json"
-
-# Mainnet (updated — includes Holocene/Isthmus/Jovian times; Granite already active)
-curl -o rollup.json "https://hashkeychain.s3.ap-southeast-1.amazonaws.com/mainnet/rollup.json"
-```
-
-If you consume the config directly via `ROLLUP_CONFIG_URL`, no URL change is needed — the file contents at the existing URL are updated in place. Just restart op-node so it reloads the config.
+Pull the latest configuration files (see [Rollup & genesis configuration](#rollup--genesis-configuration) above). If your `.env` sets `ROLLUP_CONFIG_URL` and `GENESIS_URL` to the official S3 URLs, re-run `./fetch-config.sh` or restart after the remote files are updated so both **op-node** and the execution client load the new config.
 
 ### 3. Configure the op-geth hardfork overrides
 
@@ -142,6 +168,7 @@ Isthmus integrates the Ethereum **Prague (Pectra)** features into the OP Stack:
 ### Jovian
 
 - **Improved rollup fee calculation** — including a configurable minimum base fee via `SystemConfig`.
+- **Upgraded L2 `GasPriceOracle` and `L1Block` contracts** on mainnet (see [L2 contract updates](#l2-contract-updates-mainnet)).
 - **Block header updates** supporting the new fee model.
 - **Fault proof virtual machine (FPVM) maintenance update.**
 
